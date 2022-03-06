@@ -76,7 +76,7 @@
             pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            pictureBox1.BackColor = System.Drawing.Color.CadetBlue;
+            pictureBox1.Image = global::ContactsAppUI.Properties.Resources._1485477027_attention_78563;
             pictureBox1.Location = new System.Drawing.Point(3, 3);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(94, 95);
@@ -93,6 +93,7 @@
             this.Search.Name = "Search";
             this.Search.Size = new System.Drawing.Size(216, 20);
             this.Search.TabIndex = 1;
+            this.Search.TextChanged += new System.EventHandler(this.Search_TextChanged);
             // 
             // Find
             // 
@@ -236,6 +237,7 @@
             this.ContactsListBox.ScrollAlwaysVisible = true;
             this.ContactsListBox.Size = new System.Drawing.Size(247, 303);
             this.ContactsListBox.TabIndex = 2;
+            this.ContactsListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // PhoneMaskedTextBox
             // 
@@ -274,6 +276,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.exitToolStripMenuItem.Text = "Exit (ALT + F4)";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Exit_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -290,18 +293,21 @@
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.Add_Click);
             // 
             // editContactToolStripMenuItem
             // 
             this.editContactToolStripMenuItem.Name = "editContactToolStripMenuItem";
             this.editContactToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.editContactToolStripMenuItem.Text = "Edit Contact";
+            this.editContactToolStripMenuItem.Click += new System.EventHandler(this.Edit_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.Remove_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -316,6 +322,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.aboutToolStripMenuItem.Text = "About (F1)";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.About_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -367,7 +374,7 @@
             // 
             this.birthdayTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.birthdayTableLayoutPanel.BackColor = System.Drawing.Color.CadetBlue;
+            this.birthdayTableLayoutPanel.BackColor = System.Drawing.Color.SkyBlue;
             this.birthdayTableLayoutPanel.ColumnCount = 2;
             this.birthdayTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.birthdayTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -386,7 +393,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BirthdayLabel.AutoSize = true;
-            this.BirthdayLabel.BackColor = System.Drawing.Color.CadetBlue;
             this.BirthdayLabel.Location = new System.Drawing.Point(103, 0);
             this.BirthdayLabel.Name = "BirthdayLabel";
             this.BirthdayLabel.Size = new System.Drawing.Size(220, 101);
@@ -425,6 +431,7 @@
             this.RemoveButton.Size = new System.Drawing.Size(27, 28);
             this.RemoveButton.TabIndex = 5;
             this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.Remove_Click);
             // 
             // AddButton
             // 
@@ -439,6 +446,7 @@
             this.AddButton.Size = new System.Drawing.Size(26, 28);
             this.AddButton.TabIndex = 3;
             this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.Add_Click);
             // 
             // EditButton
             // 
@@ -452,6 +460,7 @@
             this.EditButton.Size = new System.Drawing.Size(26, 25);
             this.EditButton.TabIndex = 4;
             this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.Edit_Click);
             // 
             // MainForm
             // 
@@ -470,6 +479,8 @@
             this.MinimumSize = new System.Drawing.Size(613, 477);
             this.Name = "MainForm";
             this.Text = "ContactApp";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ContactsApp_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

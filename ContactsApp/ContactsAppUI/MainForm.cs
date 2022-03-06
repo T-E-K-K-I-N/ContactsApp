@@ -1,18 +1,262 @@
 ﻿using ContactsApp;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
-using System.Resources;
 
 namespace ContactsAppUI
 {
     public partial class MainForm : Form
 	{
+		/// <summary>
+		/// Contains all data of app
+		/// </summary>
+		private Project _project;
+
+		/// <summary>
+		/// Support list for search 
+		/// </summary>
+		private List<Contact> _contacts;
+
+		/// <summary>
+		/// Looking for all contacts by first and last name
+		/// </summary>
+		private void SearchContact()
+		{
+			if (Search.Text.Length == 0)
+			{
+				_contacts = _project.SearchContacts();
+			}
+			else
+			{
+				_contacts = _project.SearchContacts(Search.Text);
+			}
+			UpdatesListBox(_contacts);
+		}
+
+		/// <summary>
+		/// Clears all Text boxes
+		/// </summary>
+		private void ClearTextBoxes()
+		{
+			SurnameTextBox.Clear();
+			NameTextBox.Clear();
+			BirthdayDateTimePicker.Value = BirthdayDateTimePicker.MinDate;
+			PhoneMaskedTextBox.Clear();
+			EmailTextBox.Clear();
+			VkTextBox.Clear();
+		}
+
+		/// <summary>
+		/// Update Contacts list box
+		/// </summary>
+		private void UpdatesListBox(List<Contact> contacts)
+		{
+			ContactsListBox.DataSource = null;
+			ContactsListBox.DataSource = contacts;
+			ContactsListBox.DisplayMember = "Surname";
+			ContactsListBox.ValueMember = "PhoneNumber";
+		}
+
+		/// <summary>
+		/// Changes Text Boxes
+		/// </summary>
+		/// <param name="contact">
+		/// Contact to add to Text Boxes
+		/// </param>
+		private void ChangeTextBoxes(Contact contact)
+		{
+			SurnameTextBox.Text = contact.Surname;
+			NameTextBox.Text = contact.Name;
+			BirthdayDateTimePicker.Value = contact.Birthday;
+			PhoneMaskedTextBox.Text = contact.PhoneNumber.Number.ToString();
+			EmailTextBox.Text = contact.Email;
+			VkTextBox.Text = contact.VkId;
+		}
+
+		/// <summary>
+		/// Удаление элемента
+		/// </summary>
+		private void RemoveElement()
+		{
+			var selectedIndex = ContactsListBox.SelectedIndex;
+			if (selectedIndex != -1)
+			{
+				var choice = MessageBox.Show("Вы действительно хотите удалить контакт?",
+					"To delete", MessageBoxButtons.YesNo);
+				if (choice == DialogResult.Yes)
+				{
+					var selectedContact = _contacts[selectedIndex];
+					_project.Contacts.Remove(selectedContact);
+					ProjectManager.SaveProject(_project);
+					SearchContact();
+					UpdatesListBox(_contacts);
+					ContactsListBox.ClearSelected();
+					ClearTextBoxes();
+				}
+			}
+			else
+			{
+				MessageBox.Show("Не выбран контакт", "Ошибка",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		/// <summary>
+		/// Проверяет контакты на наличие дней рождений 
+		/// </summary>
+        private void CheckForBirthday()
+        {
+            BirthdayLabel.Text = "Сегодня день рождения:\n";
+            var birthdayContacts = _project.FindBirthdayContacts(DateTime.Now);
+            if (birthdayContacts.Count != 0)
+            {
+                for (int i = 0; i < birthdayContacts.Count - 1; i++)
+                {
+                    BirthdayLabel.Text += birthdayContacts[i].Surname + ", ";
+                }
+
+                BirthdayLabel.Text += birthdayContacts[birthdayContacts.Count - 1].Surname;
+            }
+            else
+            {
+                this.Controls.Remove(birthdayTableLayoutPanel);
+            }
+}
+
         public MainForm()
 		{
 			InitializeComponent();
 		}
+        private void MainForm_Load(object sender, EventArgs e)
+		{
+			try
+			{
+				_project = ProjectManager.ReadProject();
+				_project.Contacts = _project.SearchContacts();
+				_contacts = _project.Contacts;
+			}
+			catch (AccessViolationException exception)
+			{
+				MessageBox.Show(exception.Message, "Ошибка", MessageBoxButtons.OK);
+				_project = new Project();
+				ProjectManager.CreatePath(null, null);
+			}
 
-	}
+			CheckForBirthday();
+			UpdatesListBox(_contacts);
+			ContactsListBox.ClearSelected();
+		}
+
+		private void Edit_Click(object sender, EventArgs e)
+		{
+			var selectedIndex = ContactsListBox.SelectedIndex;
+			if (selectedIndex != -1)
+			{
+				var selectedContact = _contacts[selectedIndex];
+				var editForm = new ContactForm()
+				{
+					Contact = selectedContact
+				};
+				editForm.ShowDialog();
+				var updateContact = editForm.Contact;
+				if (editForm.DialogResult == DialogResult.OK)
+				{
+
+					var selectIndexForProjectContacts = _project.FindIndex(
+						selectedContact);
+					_project.Contacts.RemoveAt(selectIndexForProjectContacts);
+					_project.Contacts.Insert(selectIndexForProjectContacts,
+						updateContact);
+					_project.Contacts = _project.SearchContacts();
+
+				}
+
+				ProjectManager.SaveProject(_project);
+				SearchContact();
+				UpdatesListBox(_contacts);
+				ChangeTextBoxes(updateContact);
+				var selectContact = _project.FindIndex(updateContact);
+				ContactsListBox.ClearSelected();
+				ContactsListBox.SetSelected(selectContact, true);
+				CheckForBirthday();
+			}
+			else
+			{
+				MessageBox.Show("Не выбран контакт", "Ошибка",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		private void Add_Click(object sender, EventArgs e)
+		{
+			var addForm = new ContactForm();
+			addForm.ShowDialog();
+			if (addForm.DialogResult == DialogResult.OK)
+			{
+				var newContact = addForm.Contact;
+				_project.Contacts.Add(newContact);
+				ProjectManager.SaveProject(_project);
+				_project.Contacts = _project.SearchContacts();
+				SearchContact();
+				UpdatesListBox(_contacts);
+				ChangeTextBoxes(newContact);
+				var selectContact = _project.FindIndex(newContact);
+				ContactsListBox.ClearSelected();
+				ContactsListBox.SetSelected(selectContact, true);
+			}
+			CheckForBirthday();
+		}
+
+		private void Remove_Click(object sender, EventArgs e)
+		{
+			RemoveElement();
+			CheckForBirthday();
+		}
+
+		private void ListBox1_SelectedIndexChanged(object sender,
+			EventArgs e)
+		{
+			var selectedIndex = ContactsListBox.SelectedIndex;
+			if (selectedIndex == -1) return;
+			ChangeTextBoxes(_contacts[selectedIndex]);
+
+		}
+        private void Exit_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
+
+		private void About_Click(object sender, EventArgs e)
+		{
+			var about = new About();
+			about.ShowDialog();
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == (Keys.F1))
+			{
+				var about = new About();
+				about.ShowDialog();
+				return true;
+			}
+
+			if (keyData == (Keys.Delete))
+			{
+				RemoveElement();
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		private void ContactsApp_FormClosing(Object sender,
+			FormClosingEventArgs e)
+		{
+			ProjectManager.SaveProject(_project);
+		}
+
+		private void Search_TextChanged(object sender, EventArgs e)
+		{
+			SearchContact();
+		}
+    }
 }

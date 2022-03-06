@@ -11,17 +11,17 @@ namespace ContactsApp
 		/// <summary>
 		/// Значение максимальной длины имени
         /// </summary>
-		private const int MaxNameLength = 50;
+		public const int MaxNameLength = 50;
 
         /// <summary>
         /// Значение максимальной длины email
         /// </summary>
-        private const int MaxEmailLength = 50;
+        public const int MaxEmailLength = 50;
 
 		/// <summary>
 		/// Значение макимальной длины VK ID
 		/// </summary>
-		private const int MaxVkLength = 15;
+		public const int MaxVkLength = 15;
 
 		/// <summary>
 		/// Хранит значение имени

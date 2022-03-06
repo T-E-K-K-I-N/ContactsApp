@@ -35,6 +35,24 @@ namespace ContactsApp
 		}
 
         /// <summary>
+        /// Очищаетномер телефона от всех значений, кроме цифр
+        /// </summary>
+        /// <param name="phoneNumber">Исходный номер телефона</param>
+        /// <returns>Очищенный номер телефона</returns>
+        public static string ClearPhoneNumber(string phoneNumber)
+        {
+            string clearPhoneNumber = "";
+            foreach (var i in phoneNumber)
+            {
+                if (i >= '0' && i <= '9')
+                {
+                    clearPhoneNumber += i;
+                }
+            }
+            return clearPhoneNumber;
+        }
+
+		/// <summary>
 		/// Проверяет номер телефона 
 		/// </summary>
 		/// <param name="number">Исходный номер телефона</param>

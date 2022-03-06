@@ -8,7 +8,7 @@
         /// <summary>
         /// Значение максимальной длины номера телефона
         /// </summary>
-        private const int MaxNumberLength = 11;
+        public const int MaxNumberLength = 11;
 
 		/// <summary>
         /// Значение номера телефона

@@ -13,7 +13,7 @@ namespace ContactsAppUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
-            Application.Run(new About());
+            Application.Run(new MainForm());
         }
 
 	}
