@@ -82,7 +82,7 @@ namespace ContactsAppUI
 			if (selectedIndex != -1)
 			{
 				var choice = MessageBox.Show("Вы действительно хотите удалить контакт?",
-					"To delete", MessageBoxButtons.YesNo);
+					"Удаление контакта", MessageBoxButtons.YesNo);
 				if (choice == DialogResult.Yes)
 				{
 					var selectedContact = _contacts[selectedIndex];

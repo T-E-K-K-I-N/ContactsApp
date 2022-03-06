@@ -65,7 +65,7 @@ namespace ContactsApp
 			{
 				throw new ArgumentException(
                     $"Длина номера телефона " +
-                    $"не должна превышать {correctLength} символов");
+                    $"должна составлять {correctLength} символов");
 			}
 
 			if (numberString[0] != '7')
