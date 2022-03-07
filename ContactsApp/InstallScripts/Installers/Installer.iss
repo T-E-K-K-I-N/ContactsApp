@@ -1,8 +1,8 @@
 #define Name "ContactsApp"
 #define Version "0.0.1"
 #define Publisher  "Kulinich Kirill"
-#define URL "https://github.com/Vanada1"
-#define ExeName "ContactsApp"
+#define URL "https://github.com/T-E-K-K-E-N"
+#define ExeName "ContactsAppUI"
 
 [Setup]
 AppId = {{AC2F2855-FF95-4C0D-81EB-46E4052298FE}
@@ -36,7 +36,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 
 ; Исполняемый файл
-Source: "..\Release\ContactsApp.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Release\ContactsAppUI.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Прилагающиеся ресурсы
 Source: "..\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
