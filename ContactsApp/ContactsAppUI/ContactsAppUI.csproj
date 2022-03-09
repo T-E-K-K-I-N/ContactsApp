@@ -117,6 +117,9 @@
     <Content Include="phonebook.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\Delete.ico" />
+    <None Include="Properties\Edit.ico" />
+    <None Include="Properties\Add.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -15,10 +15,10 @@ namespace ContactsApp
 		public List<Contact> Contacts { set; get; } = new List<Contact>();
 
 		/// <summary>
-		/// Sort contacts list
+		/// Сортирует список контактов
 		/// </summary>
 		/// <returns>All sorted contacts</returns>
-		private IOrderedEnumerable<Contact> SortContacts()
+		private List<Contact> SortContacts()
 		{
 			for (int i = 0; i < Contacts.Count; i++)
 			{
@@ -28,18 +28,17 @@ namespace ContactsApp
 				}
 			}
 			return Contacts.OrderBy(
-				contact => contact.Surname);
-			var contacts = new List<Contact>();
-		}
+				contact => contact.Surname).ToList();
+        }
 
 		/// <summary>
-		/// Sorting all contacts
+		/// Ищет контакт
 		/// </summary>
 		/// <param name="substring">
-		/// Searches for contacts by First Name and Last Name 
+		/// Ищет контакт по имени или фамилии
 		/// </param>
 		/// <returns>
-		/// Returns all contacts that have a <paramref name="substring"/>
+		/// Все найденные контакты
 		/// </returns>
 		public List<Contact> SearchContacts(string substring)
 		{
@@ -61,7 +60,7 @@ namespace ContactsApp
 		}
 
 		/// <summary>
-		/// Looking for all non-zero contacts
+		/// Ищет все ненулевые контакты
 		/// </summary>
 		/// <returns>Returns all contacts</returns>
 		public List<Contact> SearchContacts()
@@ -77,7 +76,7 @@ namespace ContactsApp
 		}
 
 		/// <summary>
-		/// Find All people who has Birthday on a specific date
+		/// Ищет людей по дню рождения
 		/// </summary>
 		/// <param name="date"></param>
 		/// <returns></returns>
@@ -97,11 +96,10 @@ namespace ContactsApp
 		}
 
 		/// <summary>
-		/// Find first Contact with the same <see cref="Name"/>
-		/// and <see cref="Surname"/>
+		/// Ищет контакт по объекту Contact
 		/// </summary>
 		/// <param name="contact"></param>
-		/// <returns></returns>
+		/// <returns>Первый найденный контакт</returns>
 		public int FindIndex(Contact contact)
 		{
 			for (int i = 0; i < Contacts.Count; i++)
