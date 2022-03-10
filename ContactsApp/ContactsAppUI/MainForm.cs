@@ -109,7 +109,6 @@ namespace ContactsAppUI
             birthdayTableLayoutPanel.Visible = true;
             BirthdayLabel.Text = "Сегодня день рождения:\n";
             var birthdayContacts = _project.FindBirthdayContacts(DateTime.Now);
-            BirthdayLabel.Text = "";
             if (birthdayContacts.Count != 0)
             {
                 for (int i = 0; i < birthdayContacts.Count - 1; i++)
