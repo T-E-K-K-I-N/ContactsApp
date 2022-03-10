@@ -18,8 +18,8 @@ namespace ContactsApp.UnitTests
                 "Позитивный тест сеттера списка контактов не пройден");
         }
 
-        [Test(Description = "Тест сортировки списка контактов")]
-        public void TestSort_CorrectValue()
+        [Test(Description = "Тест поиска списка контактов")]
+        public void TestSearch_CorrectValue()
         {
             var project = new Project();
             project.Contacts = new List<Contact>()
