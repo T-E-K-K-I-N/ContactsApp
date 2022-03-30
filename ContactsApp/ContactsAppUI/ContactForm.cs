@@ -25,7 +25,7 @@ namespace ContactsAppUI
 		/// <summary>
 		/// Объект старого значения контакта для восстановления при отмене изменения
 		/// </summary>
-		private Contact _oldContact = null;
+		private Contact _oldContact;
 
 		public ContactForm()
 		{

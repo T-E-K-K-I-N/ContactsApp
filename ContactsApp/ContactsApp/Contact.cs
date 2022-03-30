@@ -6,8 +6,8 @@ namespace ContactsApp
 	/// <summary>
 	/// Контакт в записной книжке
 	/// </summary>
-    public class Contact : ICloneable
-    {
+    public class Contact : ICloneable, IEquatable<Contact>
+	{
 		/// <summary>
 		/// Значение максимальной длины имени
         /// </summary>
@@ -161,5 +161,20 @@ namespace ContactsApp
                 new PhoneNumber(PhoneNumber.Number),
                 Birthday, Email, VkId);
         }
+
+		/// <summary>
+		/// Сравнивает два объекта на соответсвие
+		/// </summary>
+		public bool Equals(Contact other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return _surname == other._surname
+			       && _name == other._name
+			       && _email == other._email
+			       && _birthday.Equals(other._birthday)
+			       && _vkId == other._vkId
+			       && Equals(PhoneNumber, other.PhoneNumber);
+		}
 	}
 }

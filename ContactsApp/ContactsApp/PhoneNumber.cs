@@ -1,9 +1,11 @@
-﻿namespace ContactsApp
+﻿using System;
+
+namespace ContactsApp
 {
     /// <summary>
     /// Класс номера телефона
     /// </summary>
-    public class PhoneNumber
+    public class PhoneNumber : IEquatable<PhoneNumber>
     {
         /// <summary>
         /// Значение максимальной длины номера телефона
@@ -37,5 +39,17 @@
         {
             Number = number;
         }
-	}
+
+        /// <summary>
+        /// Сравнивает два объекта номера телефона
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(PhoneNumber other)
+        {
+	        if (ReferenceEquals(null, other)) return false;
+	        if (ReferenceEquals(this, other)) return true;
+	        return _number == other._number;
+        }
+    }
 }

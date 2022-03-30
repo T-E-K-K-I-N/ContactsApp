@@ -7,7 +7,7 @@ namespace ContactsApp
 	/// <summary>
 	/// Класс работы со списком контактов
 	/// </summary>
-    public class Project
+    public class Project : IEquatable<Project>
     {
 		/// <summary>
 		/// Список всех текущих контактов
@@ -20,13 +20,6 @@ namespace ContactsApp
 		/// <returns>All sorted contacts</returns>
 		private List<Contact> SortContacts()
 		{
-			for (int i = 0; i < Contacts.Count; i++)
-			{
-				if (Contacts[i] == null)
-				{
-					Contacts.RemoveAt(i);
-				}
-			}
 			return Contacts.OrderBy(
 				contact => contact.Surname).ToList();
         }
@@ -122,6 +115,14 @@ namespace ContactsApp
 			}
 
 			return -1;
+		}
+
+		/// <summary>
+		/// Сравнивает два объекта проекта
+		/// </summary>
+		public bool Equals(Project other)
+		{
+			return other != null && this.Contacts.Equals(other.Contacts);
 		}
 	}
 }
