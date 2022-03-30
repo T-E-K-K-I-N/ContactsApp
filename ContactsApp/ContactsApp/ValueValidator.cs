@@ -46,15 +46,8 @@ namespace ContactsApp
         /// <returns>Очищенный номер телефона</returns>
         public static string ClearPhoneNumber(string phoneNumber)
         {
-            string clearPhoneNumber = "";
-
-            foreach (var i in phoneNumber)
-            {
-                if (i >= '0' && i <= '9')
-                {
-                    clearPhoneNumber += i;
-                }
-            }
+            string clearPhoneNumber =
+	            String.Concat(phoneNumber.Where(x => x >= '0' && x <= '9'));
 
             return clearPhoneNumber;
         }
