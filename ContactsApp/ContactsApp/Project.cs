@@ -12,7 +12,7 @@ namespace ContactsApp
 		/// <summary>
 		/// Список всех текущих контактов
 		/// </summary>
-		public List<Contact> Contacts { set; get; } = new List<Contact>();
+		public List<Contact> Contacts { get; set; } = new List<Contact>();
 
 		/// <summary>
 		/// Сортирует список контактов
@@ -44,19 +44,23 @@ namespace ContactsApp
 		{
 			var contacts = new List<Contact>();
 			var query = SortContacts();
-			foreach (var i in query)
-			{
-				if (i.Surname.Contains(substring))
-				{
-					contacts.Add(i);
-				}
-				else if (i.Name.Contains(substring))
-				{
-					contacts.Add(i);
-				}
-			}
-
-			return contacts;
+            contacts.AddRange(query.Where(i => 
+                (i.Surname.Contains(substring)) 
+                || (i.Name.Contains(substring))).ToList());
+            
+            //foreach (var i in query)
+		   //{
+		   //	if (i.Surname.Contains(substring))
+		   //	{
+		   //		contacts.Add(i);
+		   //	}
+		   //	else if (i.Name.Contains(substring))
+		   //	{
+		   //		contacts.Add(i);
+		   //	}
+		   //}
+           
+           return contacts;
 		}
 
 		/// <summary>
@@ -67,10 +71,12 @@ namespace ContactsApp
 		{
 			var contacts = new List<Contact>();
 			var query = SortContacts();
-			foreach (var i in query)
-			{
-				contacts.Add(i);
-			}
+			contacts.AddRange(query);
+
+			//foreach (var i in query)
+			//{
+			//	contacts.Add(i);
+			//}
 
 			return contacts;
 		}
@@ -83,14 +89,18 @@ namespace ContactsApp
 		public List<Contact> FindBirthdayContacts(DateTime date)
 		{
 			var birthdayContacts = new List<Contact>();
-			foreach (var contact in Contacts)
-			{
-				if (contact.Birthday.Day == date.Day &&
-					contact.Birthday.Month == date.Month)
-				{
-					birthdayContacts.Add(contact);
-				}
-			}
+			birthdayContacts.AddRange(Contacts.Where(contact => 
+                (contact.Birthday.Day.Equals(date.Day)) 
+                && (contact.Birthday.Month.Equals(date.Month))));
+			
+            //foreach (var contact in Contacts)
+			//{
+			//	if (contact.Birthday.Day == date.Day &&
+			//		contact.Birthday.Month == date.Month)
+			//	{
+			//		birthdayContacts.Add(contact);
+			//	}
+			//}
 
 			return birthdayContacts;
 		}

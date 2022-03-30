@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ContactsApp
 {
@@ -7,6 +8,10 @@ namespace ContactsApp
 	/// </summary>
     public static class ValueValidator
     {
+        /// <summary>
+        /// Проверяет введенную дату на корректное значение 
+        /// </summary>
+        /// <param name="date">Исходная дата</param>
         public static void CheckDate(DateTime date)
         {
             if (date.Year < 1900)
@@ -42,6 +47,7 @@ namespace ContactsApp
         public static string ClearPhoneNumber(string phoneNumber)
         {
             string clearPhoneNumber = "";
+
             foreach (var i in phoneNumber)
             {
                 if (i >= '0' && i <= '9')
@@ -49,6 +55,7 @@ namespace ContactsApp
                     clearPhoneNumber += i;
                 }
             }
+
             return clearPhoneNumber;
         }
 

@@ -10,7 +10,17 @@ namespace ContactsAppUI
 		/// <summary>
 		/// Объект контакта
 		/// </summary>
-		public Contact Contact { set; get; }
+		public Contact Contact { get; set; }
+
+		/// <summary>
+		/// Базовый цвет поля ввода данных
+		/// </summary>
+        public Color CorrectColor = Color.White;
+
+        /// <summary>
+        /// Цвет поля ввода данных при ошибке
+        /// </summary>
+        public Color ErrorColor = Color.LightSalmon;
 
 		/// <summary>
 		/// Объект старого значения контакта для восстановления при отмене изменения
@@ -69,27 +79,27 @@ namespace ContactsAppUI
 			{
                 ValueValidator.AssertStringLength(SurnameTextBox.Text,
 					Contact.MaxNameLength, null);
-				SurnameTextBox.BackColor = Color.White;
+				SurnameTextBox.BackColor = CorrectColor;
 			}
 			catch (ArgumentException)
 			{
-				SurnameTextBox.BackColor = Color.LightSalmon;
+				SurnameTextBox.BackColor = ErrorColor;
 			}
 		}
 
 		private void NameTextBox_TextChanged(object sender, EventArgs e)
 		{
-            NameTextBox.BackColor = Color.White;
+            NameTextBox.BackColor = CorrectColor;
 			try
 			{
                 ValueValidator.AssertStringLength(NameTextBox.Text,
 					Contact.MaxNameLength, null);
-				NameTextBox.BackColor = Color.White;
+				NameTextBox.BackColor = CorrectColor;
 			}
 			catch (ArgumentException)
-			{
-				NameTextBox.BackColor = Color.LightSalmon;
-			}
+            {
+                NameTextBox.BackColor = ErrorColor;
+            }
 		}
 
 		private void BirthdayDateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -97,11 +107,11 @@ namespace ContactsAppUI
 			try
 			{
                 ValueValidator.CheckDate(BirthdayDateTimePicker.Value);
-				BirthdayDateTimePicker.CalendarTitleBackColor = Color.White;
+				BirthdayDateTimePicker.CalendarTitleBackColor = CorrectColor;
 			}
 			catch (ArgumentException)
 			{
-				BirthdayDateTimePicker.CalendarTitleBackColor = Color.LightSalmon;
+				BirthdayDateTimePicker.CalendarTitleBackColor = ErrorColor;
 			}
 		}
 
@@ -111,11 +121,11 @@ namespace ContactsAppUI
 			{
                 ValueValidator.AssertStringLength(EmailTextBox.Text,
 					Contact.MaxEmailLength, null);
-				EmailTextBox.BackColor = Color.White;
+				EmailTextBox.BackColor = CorrectColor;
 			}
 			catch (ArgumentException)
 			{
-				EmailTextBox.BackColor = Color.LightSalmon;
+				EmailTextBox.BackColor = ErrorColor;
 			}
 		}
 
@@ -125,29 +135,29 @@ namespace ContactsAppUI
 			{
                 ValueValidator.AssertStringLength(VkTextBox.Text,
 					Contact.MaxVkLength, null);
-				VkTextBox.BackColor = Color.White;
+				VkTextBox.BackColor = CorrectColor;
 			}
 			catch (ArgumentException)
 			{
-				VkTextBox.BackColor = Color.LightSalmon;
+				VkTextBox.BackColor = ErrorColor;
 			}
 		}
 
         private void PhoneMaskedTextBox_TextChanged(object sender, EventArgs e)
         {
-            NameTextBox.BackColor = Color.White;
-            try
+            NameTextBox.BackColor = CorrectColor;
+			try
             {
                 ValueValidator.CheckPhoneNumber(Convert.ToInt64(
                         ValueValidator.ClearPhoneNumber(
                             PhoneMaskedTextBox.Text)),
                     PhoneNumber.MaxNumberLength);
-                PhoneMaskedTextBox.BackColor = Color.White;
-            }
+                PhoneMaskedTextBox.BackColor = CorrectColor;
+			}
             catch (ArgumentException)
             {
-                PhoneMaskedTextBox.BackColor = Color.LightSalmon;
-            }
+                PhoneMaskedTextBox.BackColor = ErrorColor;
+			}
 		}
     }
 }
