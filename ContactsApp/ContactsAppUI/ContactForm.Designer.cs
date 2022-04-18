@@ -236,7 +236,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.CancelButton, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.OKButton, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(108, 173);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(183, 173);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -250,7 +250,6 @@
             this.ClientSize = new System.Drawing.Size(393, 212);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

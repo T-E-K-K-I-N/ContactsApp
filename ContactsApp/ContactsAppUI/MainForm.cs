@@ -106,7 +106,7 @@ namespace ContactsAppUI
 		/// </summary>
         private void CheckForBirthday()
         {
-            birthdayTableLayoutPanel.Visible = true;
+            BirthdayTableLayoutPanel.Visible = true;
             BirthdayLabel.Text = "Сегодня день рождения:\n";
             var birthdayContacts = _project.FindBirthdayContacts(DateTime.Now);
             if (birthdayContacts.Count != 0)
@@ -120,7 +120,7 @@ namespace ContactsAppUI
             }
             else
             {
-                birthdayTableLayoutPanel.Visible = false;
+                BirthdayTableLayoutPanel.Visible = false;
             }
 }
 
